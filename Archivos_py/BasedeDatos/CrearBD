@@ -1,0 +1,19 @@
+CREATE TABLE lote (
+    id SERIAL PRIMARY KEY,
+    estado VARCHAR(20) NOT NULL CHECK (
+        estado IN ('pendiente', 'proceso', 'terminado')
+    )
+);
+
+CREATE TABLE botellas (
+    codigo SERIAL PRIMARY KEY,
+    llenada BOOLEAN DEFAULT FALSE,
+    taponada BOOLEAN DEFAULT FALSE,
+    empaquetada BOOLEAN DEFAULT FALSE,
+    lote_id INTEGER NOT NULL,
+    
+    CONSTRAINT fk_lote
+        FOREIGN KEY (lote_id)
+        REFERENCES lote(id)
+        ON DELETE CASCADE
+);
